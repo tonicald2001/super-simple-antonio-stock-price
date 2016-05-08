@@ -2,30 +2,27 @@ package antonio.supersimple.stockprice.model;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+
 import antonio.supersimple.stockprice.model.exceptions.InvalidDividendFixedException;
 import antonio.supersimple.stockprice.model.exceptions.InvalidStockTypeException;
-
+/**
+ * Stock Factory under is a builder class factory for building stock classes depending on the type
+ * @author Antonio Calderon
+ * @version 1.0
+ 
+ */
 public class StockFactory {
-    
-   private static StockFactory instance=null;
-   
-   private StockFactory() {}
-   
-   public static StockFactory getInstance(){
-       if (instance==null) {
-           instance=new StockFactory();
-           return instance;
-       }else {
-           
-           return instance;
-       }
-        
-   }
      
-   
-    public Stock getStockBySymbol(final String symbol) throws InvalidStockTypeException, InvalidDividendFixedException{
+   /**
+    * Build and return different kinds of Stocks depending on stock type passed as parameter.
+    * @param type The stock type represented by a string
+    * @return an Stock object
+    * @throws InvalidStockTypeException if the stock type  is not defined
+    * @throws InvalidDividendFixedException if the fixed dividend is not valid
+    */
+    public static Stock getStockBySymbol(final String type) throws InvalidStockTypeException, InvalidDividendFixedException{
        
-        final StockType stockType=StockType.getStockTypeBySymbol(symbol);
+        final StockType stockType=StockType.getStockTypeBySymbol(type);
         
         Stock stock=null;
         

@@ -8,29 +8,46 @@ import java.util.Date;
 import java.util.List;
 
 import antonio.supersimple.stockprice.model.Trade;
+/**
+ * The StockPricesCalculator is a class commited to calculation  
+ * @author Antonio Calderon
+ * @version 1.0
 
+ */
 public class StockPricesCalculator {
-    
-    
-    public static BigDecimal calculateStockPrice(final BigDecimal dividend,final BigDecimal divisor) {
-        
-        if (dividend!=null && divisor!=null) {
-        
-            if (divisor.compareTo(BigDecimal.ZERO) == 0) {
+
+    /**
+     * Calculate a division between two big decimals,
+     * @param dividend The dividend.
+     * @param divider The divider
+     * @return a BigDecimal as a result of the division with accurates of 6 decimals and Rounding Half up
+
+     */
+    private static BigDecimal divide(final BigDecimal dividend,final BigDecimal divider) {
+
+        if (dividend!=null && divider!=null) {
+
+            if (divider.compareTo(BigDecimal.ZERO) == 0) {
                 return null;
             }
-            return dividend.divide(BigDecimal.valueOf(divisor.longValue()), 6, RoundingMode.HALF_UP);
+            return dividend.divide(BigDecimal.valueOf(divider.longValue()), 6, RoundingMode.HALF_UP);
         }
         return null;
-        
+
     }
-   
+    /**
+     * Calculate Stock Price for a Trade List for a given stock,
+     * @param listTrades The list of Trades for a definite stock type.
+     * @return a BigDecimal as the Stock price for a given stock
+
+     */
+
     public static BigDecimal calculateStockPrice(final List<Trade> listTrades) {
-    
+
         if (listTrades!=null) {
             BigDecimal sumQuantity=new BigDecimal("0");
             BigDecimal sumTradeXQuantity=new BigDecimal("0");
-            
+
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date actualDate=new Date();
             for (Trade trade:listTrades) {
@@ -43,27 +60,33 @@ public class StockPricesCalculator {
                     BigDecimal multiply=tradeQuantity.multiply(tradePrice);
                     sumTradeXQuantity=sumTradeXQuantity.add(multiply);
                     sumQuantity=sumQuantity.add(tradeQuantity);
-                 }
-                 
+                }
+
             }
-            
-            return StockPricesCalculator.calculateStockPrice(sumTradeXQuantity,sumQuantity);
+
+            return StockPricesCalculator.divide(sumTradeXQuantity,sumQuantity);
         }
         return null;
     }
 
+    /**
+     * Calculate time differences time in minutes between the current date and a timnestamp trade date,
+     * @param currentDate cuurent date in format yyyy-MM-dd hh:mm:ss
+     * @param tradeDate cuurent date
+     * @return a long as the time difference in minutes between these dates, and -1 when an exception ocurred or one date is  null.
 
-    public static long calculateDifferencesInMinutes(final String currentDate,final String dateToCompare) {
+     */
+    public static long calculateDifferencesInMinutes(final String currentDate,final String tradeDate) {
 
         final long MILLSECS_PER_MIN =  60 * 1000; //Milisegundos per minute 
 
-        if (currentDate!=null && dateToCompare!=null) {
+        if (currentDate!=null && tradeDate!=null) {
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try{
 
                 Date date1 = formatter.parse(currentDate);
-                Date date2 = formatter.parse(dateToCompare);
+                Date date2 = formatter.parse(tradeDate);
                 if(date1.compareTo(date2)>=0) {
                     long difference = ( date1.getTime() - date2.getTime() )/MILLSECS_PER_MIN; 
                     return difference;
@@ -82,7 +105,6 @@ public class StockPricesCalculator {
     }  
 
 } 
-    
-    
-    
-    
+
+
+
