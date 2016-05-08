@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	
+	<parent>
+	  <groupId>stockprice.antonio</groupId>
+	  <artifactId>simple-stock-app</artifactId>
+	  <version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>stockprice.antonio</groupId>
+	<artifactId>simple-stock-app_lib</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>simple-stock-app_lib</name>
+	<description>Librería cliente de  simple-stock-app_lib</description>
+	
+	<build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+         <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+            </manifest>
+          </archive>
+        </configuration>
+       
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+       
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>antonio.supersimple.stockprice.main.App</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+       
+      </plugin>
+    </plugins>
+  </build>
+	
+
+	
+</project>

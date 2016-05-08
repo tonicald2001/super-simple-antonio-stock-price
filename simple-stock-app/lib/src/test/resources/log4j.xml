@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- *************************************************************************************** -->
+<!-- Fichero de configuracion de log                                                         -->
+<!-- *************************************************************************************** -->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+      <layout class="atlas.core.log.pattern.AtlasPatternLayout">
+        <param name="ConversionPattern" value="%d{dd/MM/yyyy HH:mm:ss,SSS} %-5p [%t] (%F:%L) - %m%n" />
+      </layout>
+    </appender>
+
+    <appender name="FILE_LOG" class="atlas.core.log.cliente.appender.AtlasRollingFileAppender">
+      <param name="Threshold" value="DEBUG"/>
+      <param name="File" value="${monitor.FILE.directorioCliente}/test.log"/>
+      <param name="maxFileSize" value="1024Kb"/>
+      <param name="maxBackupIndex" value="10"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="[%d{dd/MM/yyyy HH:mm:ss,SSS}][%p][%m][%X{host}][%X{aplicacion}][%X{metodoTraza}][%C.%M][%c][%X{idRequest}][%X{request}][%X{id}][%X{usuario}][%X{tipoTraza}][%X{tiempoIniTraza}][%X{tiempoFinTraza}][%X{sesion}][%X{huboExcepciones}]%n" />
+      </layout>
+    </appender> 
+
+    <category name="atlas" class="atlas.core.log.AtlasLogger">
+      <level value="debug" />
+    </category>
+
+    <category name="org.springframework.security" class="atlas.core.log.AtlasLogger">
+      <level value="info" />
+    </category>
+
+    <root>
+      <level value="info"/>
+      <appender-ref ref="STDOUT"/>
+      <appender-ref ref="FILE_LOG"/>
+    </root>
+
+    <categoryFactory class="atlas.core.log.AtlasLoggerFactory">
+      <param name="aplicacion" value="${monitor.FILE.applicationId}" />
+    </categoryFactory>
+</log4j:configuration>
